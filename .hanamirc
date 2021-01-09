@@ -1,0 +1,3 @@
+project=keyboards
+test=rspec
+template=erb

@@ -1,0 +1,68 @@
+<h2>All keyboards</h2>
+
+<% if keyboards.any? %>
+  <div id="keyboards">
+    <% keyboards.each do |keyboard| %>
+      <div class="keyboard pure-g">
+        <h2><%= keyboard.name %></h2>
+        <div class="keyboard-photo pure-u-1-2">
+          dasfsdf
+        </div>
+        <div class="keyboard-description pure-u-1-2">
+          <p>Color: <%= keyboard.color %></p>
+          <p>Keyset: <%= keysets.from_keyboard(keyboard).name %></p>
+          <ul>
+            <% builds.for_keyboard(keyboard).each do |build| %>
+              <li>Build with <%= build.plate %>
+                <ul>
+                  <li>Plate: <%= build.plate %></li>
+                  <li>Switches:
+                    <% assembly_switches = switches.for_build(build) %>
+                    <% if assembly_switches.length > 1 then %>
+                      <% assembly_switches.each do |switch| %>
+                        <ul>
+                          <li><%= switch.name %>
+                            <ul>
+                              <li>Spring: <%= switch.spring %></li>
+                              <% if switch.film %>
+                                <li>Switch films: <%= switch.film %></li>
+                              <% end %>
+                              <% if switch.lube %>
+                                <li>Lube: <%= switch.lube %></li>
+                              <% else %>
+                                <li>Unlubed</li>
+                              <% end %>
+                            </ul>
+                          </li>
+                        </ul>
+                      <% end %>
+                    <% else %>
+                      <% switch = assembly_switches.first %>
+                      <%= switch.name %>
+                      <ul>
+                        <li>Spring: <%= switch.spring %></li>
+                        <% if switch.film then %>
+                          <li>Switch films: <%= switch.film %></li>
+                        <% end %>
+                        <% if switch.lube then %>
+                          <li>Lube: <%= switch.lube %></li>
+                        <% else %>
+                          <li>Unlubed</li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                    <% if build.stabilizer %>
+                      <li>Stabilizers: <%= build.stabilizer %></li>
+                    <% end %>
+                  </li>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="placeholder">There are no keyboards yet.</p>
+<% end %> <a href="/keyboards/new">New book</a>
